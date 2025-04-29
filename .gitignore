@@ -1,0 +1,23 @@
+# node_modules
+node_modules/
+client/job-portal-frontend/node_modules/
+
+# build files
+client/job-portal-frontend/build/
+dist/
+
+# environment variables
+.env
+server/.env
+
+# system files
+.DS_Store
+.vscode/
+
+# logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# coverage reports
+coverage/
