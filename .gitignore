@@ -1,9 +1,9 @@
 # node_modules
 node_modules/
-client/job-portal-frontend/node_modules/
+job-portal-frontend/node_modules/
 
 # build files
-client/job-portal-frontend/build/
+job-portal-frontend/build/
 dist/
 
 # environment variables
