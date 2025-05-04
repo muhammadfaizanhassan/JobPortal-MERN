@@ -16,7 +16,7 @@ const app = express();
 
 // CORS setup
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://jobportal-mern-frontend.onrender.com/', // Allow frontend access
+  origin: 'https://jobportal-mern-frontend.onrender.com/', // Allow frontend access
   credentials: true
 }));
 
