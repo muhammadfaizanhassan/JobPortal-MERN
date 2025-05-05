@@ -8,6 +8,9 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  const isAdmin = user?.isAdmin === true;
+
+
   const handleLogout = () => {
     logout();
     setMenuOpen(false);
@@ -73,11 +76,12 @@ const Navbar = () => {
             </Link>
           )}
 
-          {user?.role === 'admin' && (
-            <Link to="/admin" onClick={handleMenuClick} className="py-2 text-gray-700">
-              Admin
-            </Link>
-          )}
+{isAdmin && (
+  <Link to="/admin" onClick={handleMenuClick} className="py-2 text-gray-700 hover:text-indigo-600 transition">
+    Admin
+  </Link>
+)}
+
 
           {user ? (
             <>

@@ -1,4 +1,3 @@
-// pages/CompanyList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "../utils/axios";
 import { Link } from "react-router-dom";
@@ -22,27 +21,43 @@ const CompanyList = () => {
     fetchCompanies();
   }, []);
 
-  if (loading) return <p className="text-center mt-6">Loading companies...</p>;
+  if (loading)
+    return (
+      <div className="flex justify-center items-center min-h-[30vh]">
+        <p className="text-gray-500 text-lg">Loading companies...</p>
+      </div>
+    );
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-semibold mb-6 text-center">Companies</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {companies.map((company) => (
-          <div key={company._id} className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-bold mb-2">{company.name}</h3>
-            <p className="text-gray-600 mb-2">{company.location}</p>
-            <p className="text-gray-500 mb-4">
-              {company.description.slice(0, 100)}...
-            </p>
-            <Link
-              to={`/company/${company._id}`}
-              className="text-blue-600 hover:underline"
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-100 py-12 px-4">
+      <div className="container mx-auto">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-10 drop-shadow-sm">
+          🏢 Top Companies
+        </h2>
+
+        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {companies.map((company) => (
+            <div
+              key={company._id}
+              className="bg-white/80 backdrop-blur-sm shadow-lg border border-white/40
+                         rounded-xl p-6 transition-transform duration-300 hover:shadow-xl hover:scale-[1.02]"
             >
-              View Details
-            </Link>
-          </div>
-        ))}
+              <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                {company.name}
+              </h3>
+              <p className="text-sm text-gray-500 mb-1">📍 {company.location}</p>
+              <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                {company.description.slice(0, 100)}...
+              </p>
+              <Link
+                to={`/company/${company._id}`}
+                className="inline-block text-indigo-600 hover:text-indigo-800 text-sm font-medium underline transition-colors duration-150"
+              >
+                View Details →
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

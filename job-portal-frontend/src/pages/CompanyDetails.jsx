@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from '../utils/axios';
 
 const CompanyDetails = () => {
-  const { id } = useParams();  // Extract 'id' from URL
+  const { id } = useParams();
   const [company, setCompany] = useState(null);
   const [error, setError] = useState('');
 
@@ -21,15 +21,46 @@ const CompanyDetails = () => {
     fetchCompany();
   }, [id]);
 
-  if (error) return <p>{error}</p>;
-  if (!company) return <p>Loading company details...</p>;
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-[30vh]">
+        <p className="text-red-600 text-lg font-medium">{error}</p>
+      </div>
+    );
+  }
+
+  if (!company) {
+    return (
+      <div className="flex justify-center items-center min-h-[30vh]">
+        <p className="text-gray-500 text-lg">Loading company details...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-semibold mb-4">{company.name}</h2>
-      <p className="text-gray-600 mb-2"><strong>Location:</strong> {company.location}</p>
-      <p className="text-gray-600 mb-2"><strong>Website:</strong> <a href={company.website} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{company.website}</a></p>
-      <p className="text-gray-700 mt-4">{company.description}</p>
+    <div className="min-h-screen bg-gradient-to-tr from-purple-50 via-white to-indigo-100 py-12 px-4">
+      <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm shadow-2xl rounded-2xl p-8 transition-all duration-300">
+        <h2 className="text-4xl font-bold text-gray-800 mb-6">{company.name}</h2>
+
+        <div className="space-y-4 text-gray-700 text-base">
+          <p>
+            <span className="font-semibold">📍 Location:</span> {company.location}
+          </p>
+          <p>
+            <span className="font-semibold">🌐 Website:</span>{' '}
+            <a
+              href={company.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-600 hover:text-indigo-800 underline transition-colors"
+            >
+              {company.website}
+            </a>
+          </p>
+        </div>
+
+        <p className="mt-6 text-gray-700 leading-relaxed">{company.description}</p>
+      </div>
     </div>
   );
 };

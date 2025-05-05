@@ -23,34 +23,54 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-3xl font-semibold text-center mb-6">Login</h2>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white shadow rounded p-6">
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <input
-          className="w-full p-2 border rounded mb-4"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className="w-full p-2 border rounded mb-6"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-4">
+      <div className="w-full max-w-md bg-white/20 backdrop-blur-sm shadow-2xl rounded-2xl p-8 transition-all duration-500 ease-out">
+        <h2 className="text-3xl font-semibold text-center mb-6 text-white">Login</h2>
+        <form onSubmit={handleSubmit}>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="
+              w-full px-4 py-3
+              bg-white bg-opacity-50 border border-white/50
+              rounded-lg mb-4
+              focus:outline-none focus:ring-2 focus:ring-indigo-300
+              transition-shadow duration-200
+            "
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="
+              w-full px-4 py-3
+              bg-white bg-opacity-50 border border-white/50
+              rounded-lg mb-6
+              focus:outline-none focus:ring-2 focus:ring-indigo-300
+              transition-shadow duration-200
+            "
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+              w-full py-3
+              bg-indigo-500 hover:bg-indigo-600
+              active:scale-95 transform transition duration-150
+              rounded-lg font-semibold text-white shadow-md
+              disabled:opacity-50
+            "
+          >
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

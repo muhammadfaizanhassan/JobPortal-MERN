@@ -1,4 +1,3 @@
-// src/pages/CreateJob.jsx
 import React, { useState, useContext } from 'react';
 import axios from '../utils/axios';
 import AuthContext from '../context/AuthContext';
@@ -40,13 +39,11 @@ const CreateJob = () => {
       const res = await axios.post('/jobs', newJob);
       if (res.status === 201) {
         setSuccess(true);
-        // clear form
         setTitle('');
         setDescription('');
         setLocation('');
         setSalary('');
         setJobType('full-time');
-        // if company was prefilled from user, leave it; otherwise clear it:
         if (!user?.company) setCompany('');
       }
     } catch (err) {
@@ -57,103 +54,107 @@ const CreateJob = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-xl">
-      <h2 className="text-2xl font-semibold mb-6">Create a New Job</h2>
+    <div className="min-h-screen bg-gradient-to-tr from-blue-100 via-white to-purple-100 py-12 px-4">
+      <div className="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">📋 Create a New Job</h2>
 
-      {success && (
-        <div className="bg-green-100 text-green-800 p-4 rounded mb-4">
-          Job created successfully!
-        </div>
-      )}
-      {error && (
-        <div className="bg-red-100 text-red-800 p-4 rounded mb-4">
-          {error}
-        </div>
-      )}
+        {success && (
+          <div className="bg-green-100 text-green-800 border border-green-300 rounded p-4 mb-4 text-sm font-medium">
+            ✅ Job created successfully!
+          </div>
+        )}
+        {error && (
+          <div className="bg-red-100 text-red-800 border border-red-300 rounded p-4 mb-4 text-sm font-medium">
+            ❌ {error}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium">Job Title</label>
-          <input
-            type="text"
-            placeholder="Senior Software Engineer"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+            <input
+              type="text"
+              placeholder="Senior Software Engineer"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block mb-1 font-medium">Job Description</label>
-          <textarea
-            placeholder="Design, develop, and maintain scalable web applications."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-2 border rounded h-24"
-            required
-          />
-        </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
+            <textarea
+              placeholder="Design, develop, and maintain scalable web applications."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-3 h-28 rounded-lg border border-gray-300 shadow-sm resize-none focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block mb-1 font-medium">Location</label>
-          <input
-            type="text"
-            placeholder="Karachi, Pakistan"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <input
+              type="text"
+              placeholder="Karachi, Pakistan"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block mb-1 font-medium">Salary</label>
-          <input
-            type="text"
-            placeholder="120000"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Salary</label>
+            <input
+              type="text"
+              placeholder="120000"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+              required
+            />
+          </div>
 
-        <div>
-          <label className="block mb-1 font-medium">Job Type</label>
-          <select
-            value={jobType}
-            onChange={(e) => setJobType(e.target.value)}
-            className="w-full p-2 border rounded"
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
+            <select
+              value={jobType}
+              onChange={(e) => setJobType(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm bg-white focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+            >
+              <option value="full-time">Full-time</option>
+              <option value="part-time">Part-time</option>
+              <option value="internship">Internship</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+            <input
+              type="text"
+              placeholder="Acme Corp"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 shadow-sm focus:ring-2 focus:ring-indigo-300 focus:outline-none"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full py-3 rounded-lg font-semibold text-white shadow-md transition duration-200 ${
+              loading
+                ? 'bg-indigo-400 cursor-not-allowed'
+                : 'bg-indigo-600 hover:bg-indigo-700 active:scale-95'
+            }`}
           >
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="internship">Internship</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1 font-medium">Company ID</label>
-          <input
-  type="text"
-  placeholder="Acme Corp"
-  value={company}
-  onChange={e => setCompany(e.target.value)}
-  className="w-full p-2 border rounded"
-  required
-/>
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className={`w-full bg-blue-600 text-white py-2 rounded ${
-            loading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-        >
-          {loading ? 'Creating Job...' : 'Create Job'}
-        </button>
-      </form>
+            {loading ? 'Creating Job...' : 'Create Job'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

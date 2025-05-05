@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   isAdmin: { type: Boolean, default: false },
-  role: { type: String, enum: ['jobseeker', 'recruiter'], default: 'jobseeker' },
+  role: { type: String, enum: ['jobseeker', 'recruiter', 'admin'], default: 'jobseeker' },
   profile: {
     resume: String,
     experience: String,
@@ -14,5 +14,6 @@ const userSchema = new mongoose.Schema({
     education: String
   }
 }, { timestamps: true });
+
 
 export default mongoose.model('User', userSchema);

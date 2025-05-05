@@ -7,7 +7,6 @@ const Job = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
-  // Fetch jobs from the server
   const fetchJobs = useCallback(async () => {
     try {
       const { data } = await axios.get('/jobs', {
@@ -19,11 +18,11 @@ const Job = () => {
     } finally {
       setLoading(false);
     }
-  }, [search]); // Add search as a dependency since it's used inside fetchJobs
+  }, [search]);
 
   useEffect(() => {
     fetchJobs();
-  }, [fetchJobs]); // Dependency array includes fetchJobs to avoid the warning
+  }, [fetchJobs]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -32,32 +31,38 @@ const Job = () => {
   };
 
   return (
-    <div className="container mx-auto px-6 py-10">
-      {/* Search Form */}
-      <form onSubmit={handleSearch} className="mb-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
-        <input
-          type="text"
-          placeholder="Search by title or location"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border border-gray-300 focus:border-blue-500 outline-none p-3 rounded-lg w-full sm:w-2/3 lg:w-1/3 shadow-md transition-all duration-200 ease-in-out"
-        />
-        <button 
-          type="submit" 
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 ease-in-out focus:outline-none">
-          Search
-        </button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100 py-12 px-4">
+      <div className="container mx-auto max-w-7xl">
+        {/* Search Form */}
+        <form
+          onSubmit={handleSearch}
+          className="mb-10 flex flex-col sm:flex-row items-center gap-4 justify-center"
+        >
+          <input
+            type="text"
+            placeholder="Search by job title or location"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full sm:w-2/3 lg:w-1/2 px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all duration-200"
+          />
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-all duration-200"
+          >
+            Search
+          </button>
+        </form>
 
-      {/* Loading Indicator */}
-      {loading ? (
-        <div className="text-center text-xl text-gray-500">
-          <div className="spinner-border animate-spin h-8 w-8 border-t-4 border-blue-600 rounded-full"></div>
-          <p>Loading job details...</p>
-        </div>
-      ) : (
-        <JobList jobs={jobs} />
-      )}
+        {/* Loading Indicator */}
+        {loading ? (
+          <div className="flex flex-col items-center gap-3 mt-20">
+            <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-600 text-lg">Loading job details...</p>
+          </div>
+        ) : (
+          <JobList jobs={jobs} />
+        )}
+      </div>
     </div>
   );
 };

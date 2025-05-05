@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import CreateJob from "./pages/CreateJob";
 import Job from "./pages/Job";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import { Navigate } from "react-router-dom";
 // 🛡️ Import Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -49,7 +50,7 @@ const App = () => {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute allowed={["jobseeker", "recruiter"]}>
+            <ProtectedRoute allowed={["jobseeker", "recruiter",'admin']}>
               <Profile />
             </ProtectedRoute>
           }
@@ -97,6 +98,8 @@ const App = () => {
           }
         />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="*" element={<Navigate to="/unauthorized" replace />} />
+
 
       </Routes>
     </AuthProvider>
